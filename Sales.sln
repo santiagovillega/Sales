@@ -5,7 +5,10 @@ VisualStudioVersion = 16.0.28516.95
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.Android", "Sales\Sales.Android\Sales.Android.csproj", "{532D8CF1-0DD1-466D-8938-CA41A48F662B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales", "Sales\Sales\Sales.csproj", "{1D3C6095-95F4-44B7-9A44-4DF64E7D2125}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sales", "Sales\Sales\Sales.csproj", "{1D3C6095-95F4-44B7-9A44-4DF64E7D2125}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A9258E94-1ADD-4732-8A6A-3DD02C4A5EEB} = {A9258E94-1ADD-4732-8A6A-3DD02C4A5EEB}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.Backend", "Sales.Backend\Sales.Backend.csproj", "{A5E87812-721C-432F-B3DC-99B2BE6DD1C1}"
 EndProject
