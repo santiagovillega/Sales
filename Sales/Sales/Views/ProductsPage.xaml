@@ -6,9 +6,38 @@
              
     <ContentPage.Content>
         <StackLayout 
-            BindingContext="{Binding Products}"> <!-- Nombre de la ViewModel-->
-            <ListView
-                ItemsSource="{Binding Products}"/> <!-- Es un atributo dentro de Products -->
+            BindingContext="{Binding Products}"
+            Padding="7,10"> <!-- Nombre de la ViewModel , margen izq,arriba,der,abajo -->
+            <ListView 
+                HasUnevenRows="True"          
+                IsRefreshing="{Binding EsRefresh}"
+                IsPullToRefreshEnabled="True"
+                RefreshCommand="{Binding CmdRefresh}"
+                ItemsSource="{Binding Products}">
+                <!-- Es un atributo dentro de Products ( HasUnevenRows no desperdiciar espacio entre filas) -->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    FontAttributes="Bold"
+                                    Grid.Column="0" 
+                                    Text="{Binding Description}">
+                                </Label>
+                                <Label
+                                    Grid.Column="1" 
+                                    HorizontalOptions="End" 
+                                    Text="{Binding Price,StringFormat='{0:C2}'}">
+                                </Label>                                
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
         
     </ContentPage.Content>
