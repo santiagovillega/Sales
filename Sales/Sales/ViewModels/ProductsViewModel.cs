@@ -9,6 +9,7 @@
     using Sales.Common.Models;
     using Service;
     using Xamarin.Forms;
+    using Sales.Helpers;
 
     public class ProductsViewModel : BaseViewModel
     {
@@ -34,14 +35,25 @@
 
         private async void LoadProducts()
         {
-            this.EsRefresh = true;            
-            /// var url = Application.Current.Resources["UrlAPI"].ToString();
+            this.EsRefresh = true;
+            var conexion = await this.apiService.CheckConnection();
+            if (!conexion.IsSuccess )
+            {
+                this.EsRefresh = false;
+                await Application.Current.MainPage.DisplayAlert(Languages.ErrorConexion , conexion.Message,Languages.Aceptar);
+                return;
+            }
+            /// var url = Application.Current.Resources["UrlAPI"].ToString();            /// 
             /// debería reemplazar variable que viene del diccionario de recursos pero no los carga
-            var response = await this.apiService.GetList<Product>("https://salesapi-sv.azurewebsites.net", "/api", "/Products");
+            var url = Application.Current.Resources["UrlAPI"].ToString();
+            var urlPrefix = Application.Current.Resources["UrlPrefix"].ToString();
+            var urlProductsController = Application.Current.Resources["UrlProductosController"].ToString();
+            ///var response = await this.apiService.GetList<Product>("https://salesapi-sv.azurewebsites.net", "/api", "/Products");
+            var response = await this.apiService.GetList<Product>(url, urlPrefix, urlProductsController);
             if (!response.IsSuccess)
             {
                 this.EsRefresh = false ;
-                await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Accept");
+                await Application.Current.MainPage.DisplayAlert(Languages.Error , response.Message, Languages.Aceptar);
                 return;
             }
             var list = (List<Product>)response.Result;
